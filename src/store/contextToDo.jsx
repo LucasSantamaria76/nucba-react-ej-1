@@ -9,10 +9,4 @@ export const ProviderToDo = ({ children }) => {
   return <ContextToDo.Provider value={{ state, dispatch }}>{children}</ContextToDo.Provider>;
 };
 
-export const useToDo = () => {
-  const context = useContext(ContextToDo);
-  if (!context) {
-    throw new Error('useToDo debe usarse dentro de un ProviderToDo');
-  }
-  return context;
-};
+export const useToDo = () => useContext(ContextToDo);

@@ -12,6 +12,12 @@ const FormTask = () => {
   const inputRef = useRef();
 
   useEffect(() => {
+    state.tasks.length && localStorage.setItem('tasks', JSON.stringify(state.tasks));
+    setTask('');
+    setTaskToEdit('');
+  }, [state.tasks]);
+
+  useEffect(() => {
     if (state.toEdit) {
       setTask(state.tasks.find((task) => task.id === state.toEdit).title);
       setTaskToEdit(state.toEdit);
@@ -25,7 +31,6 @@ const FormTask = () => {
     e.preventDefault();
     if (task.trim().length) {
       dispatch(addTask(task, taskToEdit));
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
       setTaskToEdit('');
       setTask('');
       inputRef.current.focus();
@@ -43,8 +48,8 @@ const FormTask = () => {
       confirmButtonText: 'Aceptar',
     }).then((result) => {
       if (result.isConfirmed) {
+        localStorage.removeItem('tasks');
         dispatch(deleteTask(null, true));
-        localStorage.setItem('tasks', JSON.stringify(state.tasks));
       }
     });
   };

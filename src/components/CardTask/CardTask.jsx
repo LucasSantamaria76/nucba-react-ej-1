@@ -4,7 +4,7 @@ import { useToDo } from '../../store/contextToDo';
 import './cardTask.styles.css';
 
 const CardTask = ({ task }) => {
-  const { dispatch } = useToDo();
+  const { state, dispatch } = useToDo();
 
   const handleDelete = (task) => {
     Swal.fire({
@@ -16,7 +16,12 @@ const CardTask = ({ task }) => {
       cancelButtonText: 'Cancelar',
       confirmButtonText: 'Aceptar',
     }).then((result) => {
-      if (result.isConfirmed) dispatch(deleteTask(task.id));
+      if (result.isConfirmed) {
+        if (state.toEdit === task.id) {
+          dispatch(editTask(''));
+        }
+        dispatch(deleteTask(task.id));
+      }
     });
   };
 

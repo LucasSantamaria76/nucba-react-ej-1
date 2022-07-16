@@ -1,11 +1,17 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export const Types = {
+  SET_TASKS: 'SET_TASKS',
   ADD_TASK: 'ADD_TASK',
   DELETE_TASK: 'DELETE_TASK',
   EDIT_TASK: 'EDIT_TASK',
   DELETE_TODO: 'DELETE_TODO',
 };
+
+export const setTasks = (tasks) => ({
+  type: Types.SET_TASKS,
+  payload: tasks,
+});
 
 export const addTask = (title, id = '') => ({
   type: Types.ADD_TASK,
